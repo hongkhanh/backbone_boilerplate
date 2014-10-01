@@ -18,6 +18,7 @@ curl.config({
             requires: ['jquery', 'underscore']
         },
         // app
+        app: 'app/app',
         routes: 'app/routes',
         comm: 'app/comm',
 
@@ -44,9 +45,9 @@ curl.config({
 });
 
 // Kick off the application.
-curl(['routes'], function(Routes) {
+curl(['app', 'routes'], function(app, Route) {
     'use strict';
 
-    var route = new Routes();
-    Backbone.history.start();
+    app.routes = new Route();
+    Backbone.history.start({pushState: app.pushState, root: app.root});
 });

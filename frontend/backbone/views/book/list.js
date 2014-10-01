@@ -16,7 +16,7 @@ define(function(require){
         el: '.content',
         template: _.template(template),
         events: {
-            'click #btnCreate': 'create'
+            'click h1': 'create'
         },
         initialize: function() {
             this.render();
@@ -34,21 +34,9 @@ define(function(require){
             })
             return this;
         },
-        create: function(e)
+        create: function()
         {
-            var book = new Book({
-                title: $('#txtName').get('value'),
-                page: $('#txtPage').get('value'),
-                language: $('#txtLanguage').get('value'),
-                isbn: $('#txtISBN').get('value'),
-                dimension: $('#txtDimension').get('value'),
-                description: $('#txtDescription').get('value')
-            });
-            book.save(this, {
-                success: function(data, response){
-                    alert('response: ' + response.message);
-                }
-            });
+//            app.routes.navigate('create');
         }
     });
 })

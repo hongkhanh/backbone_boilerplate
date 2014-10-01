@@ -6,17 +6,18 @@ define(function(require) {
     'use strict';
 
     var Backbone = require('backbone'),
-        ListView = require('book:list');
+        ListView = require('book:list'),
         //DetailView = require('book:detail'),
-        //CreateView = require('book:create'),
+        CreateView = require('book:create')
         //EditView = require('book:edit');
 
     return Backbone.Router.extend({
         routes: {
             '': 'index',
-            '/book/:id': 'detail',
-            '/book/edit/:id': 'edit',
-            '/book/create': 'create'
+            'book': 'index',
+            'book/:id': 'detail',
+            'edit/:id': 'edit',
+            'create': 'create'
         },
         index: function() {
             new ListView();

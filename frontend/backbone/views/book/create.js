@@ -30,14 +30,14 @@ define(function(require){
         create: function(e)
         {
             var book = new Book({
-                title: $('#txtName').get('value'),
+                title: $('#txtTitle').get('value'),
                 page: $('#txtPage').get('value'),
                 language: $('#txtLanguage').get('value'),
                 isbn: $('#txtISBN').get('value'),
                 dimension: $('#txtDimension').get('value'),
                 description: $('#txtDescription').get('value')
             });
-            book.save(this, {
+            book.save(book, {
                     success: function(data, response){
                     alert('response: ' + response.message);
                 }

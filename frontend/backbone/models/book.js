@@ -6,7 +6,7 @@ define(function(require){
     'use strict';
 
     var Backbone = require('backbone'),
-        comm = require('app/comm');
+        comm = require('comm');
 
     return Backbone.Model.extend({
         sync: function(action, model, options)
