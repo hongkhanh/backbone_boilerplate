@@ -2,7 +2,7 @@
 
 namespace app\Models;
 
-class User extends \Phalcon\Mvc\Collection
+class Book extends \Phalcon\Mvc\Collection
 {
     public function getSource()
     {

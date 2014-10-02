@@ -10,45 +10,58 @@ define(function(require){
         MINI = require('minified'),
         _=MINI._, $=MINI.$, $$=MINI.$$,
         Book = require('model:book'),
-        template = require('text!book:create.html');
+        template = require('text!book:edit.html');
 
     return  Backbone.View.extend({
         useNative: true,
         el: '.content',
         template: _.template(template),
-        events: {
-            'click #btnCreate': 'create',
+        events:
+        {
+            'click #btnSave': 'save',
             'click #btnCancel': 'cancel'
         },
-        initialize: function() {
+        initialize: function()
+        {
             this.render();
         },
-        render: function() {
-            var html = this.template();
-            this.el.innerHTML = html;
+        render: function()
+        {
+            var self = this;
+            var book = new Book({
+                id: self.id
+            });
+
+            book.fetch({
+                success: function( data){
+                    var html = self.template(data.toJSON());
+                    self.el.innerHTML = html;
+                    self.model = book;
+                },
+                error: function(){}
+            });
 
             return this;
         },
-        create: function(e)
+        save: function(e)
         {
-            var book = new Book({
+            var book = {
                 title: $('#txtTitle').get('value'),
                 page: $('#txtPage').get('value'),
                 language: $('#txtLanguage').get('value'),
                 isbn: $('#txtISBN').get('value'),
                 dimension: $('#txtDimension').get('value'),
                 description: $('#txtDescription').get('value')
-            });
-            book.save({}, {
-                    success: function(data, response){
+            };
+            this.model.save(book, {
+                success: function(data, response){
                     alert(response.message);
                 }
             });
         },
         cancel: function(e)
         {
-            this.destroy();
-            app.routes.navigate('', {trigger: true})
+            Backbone.history.history.back();
         }
     });
 })

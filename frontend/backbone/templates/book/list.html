@@ -1,10 +1,20 @@
 <h1>Books</h1>
 
+<button id="btnCreate">New Book</button><br/><br/><br/>
+
 {{each this}}
-    {{title}}<br/><br/>
-    PaperBack: {{page}}<br/>
-    Language: {{language}}<br/>
-    ISBN: {{ibsn}}<br/>
-    Dimensions: {{demention}}<br/>
-    Description: {{description}}<br/>
+    <div class="item">
+        {{this.title}}<br/><br/>
+        PaperBack: {{this.page}}<br/>
+        Language: {{this.language}}<br/>
+        ISBN: {{this.isbn}}<br/>
+        Dimensions: {{this.dimension}}<br/>
+        Description: {{this.description}}<br/>
+
+        <input type="hidden" value="{{this._id.$id}}">
+        <button class="view">View Details</button>
+        <button class="edit">Edit</button>
+        <button class="delete">Delete</button>
+        <br/><br/><br/>
+    </div>
 {{/each}}

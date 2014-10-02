@@ -49,5 +49,5 @@ curl(['app', 'routes'], function(app, Route) {
     'use strict';
 
     app.routes = new Route();
-    Backbone.history.start({pushState: app.pushState, root: app.root});
+    Backbone.history.start({pushState: false, root: ''});
 });

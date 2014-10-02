@@ -7,9 +7,9 @@ define(function(require) {
 
     var Backbone = require('backbone'),
         ListView = require('book:list'),
-        //DetailView = require('book:detail'),
-        CreateView = require('book:create')
-        //EditView = require('book:edit');
+        DetailView = require('book:detail'),
+        CreateView = require('book:create'),
+        EditView = require('book:edit');
 
     return Backbone.Router.extend({
         routes: {

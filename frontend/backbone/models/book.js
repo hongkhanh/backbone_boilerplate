@@ -23,21 +23,23 @@ define(function(require){
                     return;
                 case 'update':
                     var request = model.attributes;
-                    comm.send(request, 'book/update', function(err, data)
+                    comm.send(request, 'book/update/'+request.id, function(err, data)
                     {
                         if(!err) options.success(data);
                         else options.error(err);
                     });
                     return;
                 case 'read':
-                    comm.send(null, 'book/findById', function(err, data)
+                    var id = model.attributes.id;
+                    comm.send(null, 'book/findById/'+id, function(err, data)
                     {
                         if(!err) options.success(data);
                         else options.error(err);
                     });
                     return;
                 case 'delete':
-                    comm.send(null, 'book/delete', function(err, data)
+                    var id = model.attributes.id;
+                    comm.send(null, 'book/delete/'+id, function(err, data)
                     {
                         if(!err) options.success(data);
                         else options.error(err);

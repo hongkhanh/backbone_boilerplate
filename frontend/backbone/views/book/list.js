@@ -5,9 +5,11 @@
 define(function(require){
     'use strict';
 
-    var Backbone = require('backbone'),
+    var app = require('app'),
+        Backbone = require('backbone'),
         MINI = require('minified'),
         _=MINI._, $=MINI.$, $$=MINI.$$,
+        Book = require('model:book'),
         BookCollection = require('collection:book'),
         template = require('text!book:list.html');
 
@@ -15,13 +17,20 @@ define(function(require){
         useNative: true,
         el: '.content',
         template: _.template(template),
-        events: {
-            'click h1': 'create'
+        events:
+        {
+            'click #btnCreate': 'create',
+            'click .view': 'view',
+            'click .edit': 'edit',
+            'click .delete': 'delete'
         },
-        initialize: function() {
+        initialize: function()
+        {
             this.render();
+            $(window).on('resize', function(){console.log('resize')})
         },
-        render: function() {
+        render: function()
+        {
             var self = this,
                 Books = new BookCollection();
 
@@ -29,6 +38,7 @@ define(function(require){
                 success: function( data){
                     var html = self.template(data.toJSON());
                     self.el.innerHTML = html;
+                    self.modelList = Books;
                 },
                 error: function(){}
             })
@@ -36,7 +46,40 @@ define(function(require){
         },
         create: function()
         {
-//            app.routes.navigate('create');
+            this.destroy();
+            app.routes.navigate('create', {trigger: true});
+        },
+        view: function(e)
+        {
+            var target = e.delegateTarget;
+            var item = $(target).up('.item');
+            var id = item.select('input[hidden]').get('value');
+            app.routes.navigate('book/'+id, {trigger: true});
+        },
+        edit: function(e)
+        {
+            var target = e.delegateTarget;
+            var item = $(target).up('.item');
+            var id = item.select('input[hidden]').get('value');
+            app.routes.navigate('edit/'+id, {trigger: true});
+        },
+        delete: function(e)
+        {
+            var target = e.delegateTarget;
+            var item = $(target).up('.item');
+            var id = item.select('input[hidden]').get('value');
+            var book = new Book({
+                id: id
+            })
+            if(confirm('Are you sure to delete the book?'))
+            {
+                book.destroy();
+                item.remove();
+            }
+        },
+        destructor: function () {
+            console.log('destroy view');
+            $.off(window);
         }
     });
 })

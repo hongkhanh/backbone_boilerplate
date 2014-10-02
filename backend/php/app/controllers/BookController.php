@@ -4,16 +4,21 @@ namespace app\Controllers;
 
 use app\Models\Book;
 
-class IndexController extends \Phalcon\Mvc\Controller
+class BookController extends \Phalcon\Mvc\Controller
 {
+    public function  indexAction()
+    {
+        $books = Book::find();
+        echo json_encode($books);
+    }
     public function  findAllAction()
     {
         $books = Book::find();
         echo json_encode($books);
     }
-    public function  findByIdAction()
+    public function  findByIdAction($id)
     {
-        $book = Book::findById();
+        $book = Book::findById($id);
         echo json_encode($book);
     }
     public function createAction()
@@ -43,6 +48,7 @@ class IndexController extends \Phalcon\Mvc\Controller
         $book = Book::findById($id);
         foreach ($input as $key => $value)
         {
+            if($key == '_id' or $key == 'id') continue;
             $book->$key = $value;
         }
         if ($book->save() == false) {
