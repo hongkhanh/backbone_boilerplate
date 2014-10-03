@@ -17,7 +17,7 @@ class Application extends \Phalcon\Mvc\Application
 
         $di = new \Phalcon\DI\FactoryDefault();
 
-        $di['router'] = function() {
+        $di->set('router', function() {
             $router = new \Phalcon\Mvc\Router();
             $router->add('#^(|/)$#', array(
                 'controller' => 'index',
@@ -34,53 +34,47 @@ class Application extends \Phalcon\Mvc\Application
                 'params' => 3,
             ));
             return $router;
-        };
+        });
 
-        $di['url'] = function() {
+        $di->set('url', function() {
             $url = new \Phalcon\Mvc\Url();
             $url->setBaseUri('/');
             return $url;
-        };
+        });
 
-        $di['session'] = function() {
+        $di->set('session', function() {
             $session = new \Phalcon\Session\Adapter\Files();
             $session->start();
             return $session;
-        };
+        });
 
-        $di['dispatcher'] = function() {
+        $di->set('dispatcher', function() {
             $dispatcher = new \Phalcon\Mvc\Dispatcher();
             $dispatcher->setDefaultNamespace("app\Controllers");
             return $dispatcher;
-        };
+        });
 
-        $di['view'] = function() {
+        $di->set('view', function() {
             $view = new \Phalcon\Mvc\View();
             return $view;
-        };
+        });
 
-        $di['mongo'] = function() {
+        $di->set('mongo', function() {
             $mongo = new \MongoClient('localhost:27017');
             return $mongo->selectDb('book');
-        };
+        });
 
-        $di['collectionManager'] = function() {
+        $di->set('collectionManager', function() {
             return new \Phalcon\Mvc\Collection\Manager();
-        };
+        });
 
-        $di['request'] = function() {
+        $di->set('request', function() {
             return new \Phalcon\Http\Request();
-        };
+        });
 
-        $di['response'] = function() {
+        $di->set('response', function() {
             $response = new \Phalcon\Http\Response();
-
             $content_type = 'application/json';
-            $status = 200;
-            $description = 'OK';
-            $status_header = 'HTTP/1.1 ' . $status . ' ' . $description;
-            $response->setRawHeader($status_header);
-            $response->setStatusCode($status, $description);
             $response->setContentType($content_type, 'UTF-8');
             $response->setHeader('Access-Control-Allow-Origin', '*');
             $response->setHeader('Access-Control-Allow-Headers', 'X-Requested-With');
@@ -89,7 +83,7 @@ class Application extends \Phalcon\Mvc\Application
             $response->sendHeaders();
 
             return $response;
-        };
+        });
         $this->setDI($di);
     }
 

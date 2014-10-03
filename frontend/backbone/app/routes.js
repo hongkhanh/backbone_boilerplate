@@ -20,19 +20,23 @@ define(function(require) {
             'create': 'create'
         },
         index: function() {
-            new ListView();
+            this.showView(ListView);
         },
         detail: function(id)
         {
-            new DetailView({id: id});
+            this.showView(DetailView, {id: id});
         },
         create: function()
         {
-            new CreateView();
+            this.showView(CreateView);
         },
         edit: function(id)
         {
-            new EditView({id: id});
+            this.showView(EditView, {id: id});
+        },
+        showView : function(View, params) {
+            if (this.view) this.view.destroy();
+            this.view = new View(params);
         }
     });
 });

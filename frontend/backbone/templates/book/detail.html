@@ -1,10 +1,13 @@
-{{title}}<br/><br/>
-PaperBack: {{page}}<br/>
-Language: {{language}}<br/>
-ISBN: {{isbn}}<br/>
-Dimensions: {{dimension}}<br/>
-Description: {{description}}<br/>
+<div class="title">{{title}}</div>
 
-<button id="btnBack">Back</button>
-<button id="btnEdit">Edit</button>
-<button id="btnDelete">Delete</button>
+<div class="label">PaperBack</div><div class="input">{{page}}</div>
+<div class="label">Language</div><div class="input">{{language}}</div>
+<div class="label">ISBN</div><div class="input">{{isbn}}</div>
+<div class="label">Dimensions</div><div class="input">{{dimension}}</div>
+<div class="label">Description</div><div class="input">{{description}}</div>
+
+<div class="actions">
+    <button id="btnBack">Back</button>
+    <button id="btnDelete">Delete</button>
+    <button id="btnEdit">Edit</button>
+</div>

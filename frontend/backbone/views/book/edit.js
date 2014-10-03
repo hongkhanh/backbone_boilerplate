@@ -62,6 +62,9 @@ define(function(require){
         cancel: function(e)
         {
             Backbone.history.history.back();
+        },
+        destructor: function () {
+            console.log('view destroyed');
         }
     });
 })

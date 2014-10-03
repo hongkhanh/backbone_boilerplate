@@ -2,24 +2,29 @@
 
 namespace app\Controllers;
 
-use app\Models\Book;
+use app\Models\Book,
+    Phalcon\Http\Response;
 
 class BookController extends \Phalcon\Mvc\Controller
 {
-    public function  indexAction()
-    {
-        $books = Book::find();
-        echo json_encode($books);
-    }
     public function  findAllAction()
     {
         $books = Book::find();
-        echo json_encode($books);
+
+        $response = new Response();
+        if ($books == false){
+            http_response_code(404);
+        }
+        else echo json_encode($books);
     }
     public function  findByIdAction($id)
     {
         $book = Book::findById($id);
-        echo json_encode($book);
+
+        if ($book == false){
+            http_response_code(404);
+        }
+        else echo json_encode($book);
     }
     public function createAction()
     {
@@ -63,7 +68,6 @@ class BookController extends \Phalcon\Mvc\Controller
             'message'=>$response
         ));
     }
-
     public function deleteAction($id)
     {
         $book = Book::findById($id);

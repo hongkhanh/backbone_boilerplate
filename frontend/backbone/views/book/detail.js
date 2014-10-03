@@ -56,6 +56,9 @@ define(function(require){
                     alert(response.message);
                 }
             });
+        },
+        destructor: function () {
+            console.log('view destroyed');
         }
     });
 })

@@ -9,10 +9,12 @@ define(function(require) {
         MINI = require('minified'),
         _=MINI._, $=MINI.$, $$=MINI.$$;
 
+    // fixed destroy view
     Backbone.View.prototype.destroy = function(){
 
         this.el.innerHTML='';    // remove view from DOM
         this.undelegateEvents(); // Unbind all local event bindings
+        $.off(this);             // Unbind all local event bindings
 
         delete this.el;          // delete wrapper
         delete this.$el;         // delete wrapper

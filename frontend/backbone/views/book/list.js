@@ -27,7 +27,6 @@ define(function(require){
         initialize: function()
         {
             this.render();
-            $(window).on('resize', function(){console.log('resize')})
         },
         render: function()
         {
@@ -46,7 +45,6 @@ define(function(require){
         },
         create: function()
         {
-            this.destroy();
             app.routes.navigate('create', {trigger: true});
         },
         view: function(e)
@@ -78,8 +76,7 @@ define(function(require){
             }
         },
         destructor: function () {
-            console.log('destroy view');
-            $.off(window);
+            console.log('view destroyed');
         }
     });
 })

@@ -47,8 +47,10 @@ define(function(require){
         },
         cancel: function(e)
         {
-            this.destroy();
             app.routes.navigate('', {trigger: true})
+        },
+        destructor: function () {
+            console.log('view destroyed');
         }
     });
 })
